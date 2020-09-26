@@ -1,0 +1,14 @@
+@import '../../app.module.scss';
+.root {
+  height: 64px;
+}
+.input {
+  border-radius: 16px;
+  background-color: rgba($color:#fff, $alpha: 0.4);
+  border-color: transparent;
+  margin-left: 8px;
+  > input {
+    background-color: transparent;
+    font-size: 12px;
+  }
+}

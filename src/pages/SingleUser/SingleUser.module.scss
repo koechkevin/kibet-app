@@ -1,0 +1,38 @@
+.row {
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid lightgrey;
+  padding: 16px;
+  position: relative;
+}
+
+.label {
+  font-size: 12px;
+  color: #000;
+  pointer-events: none;
+}
+.value {
+  font-size: 16px;
+}
+
+.edit {
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.input {
+  border-radius: 8px;
+  :global(.ant-select-selector) {
+    border-radius: 8px !important;
+  }
+}
+
+.button {
+  width: 200px;
+  border-radius: 8px;
+}
