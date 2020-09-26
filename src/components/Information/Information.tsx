@@ -4,23 +4,8 @@ import { Props } from './Information.interface';
 import { Col, Row, Table, Typography } from 'antd';
 import { ItemView } from '../ItemView';
 import {dateFormat} from "../../utils";
-
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    balance: 'KES 32.00',
-    type: 'Prepaid',
-    number: '20207811',
-  },
-  {
-    key: '2',
-    name: 'John',
-    balance: 'KES 42.00',
-    type: 'Postpaid',
-    number: '20209811',
-  },
-];
+import {useSelector} from "react-redux";
+import {ReduxState} from "../../redux/interfaces";
 
 const columns = [
   {
@@ -49,6 +34,11 @@ const Information: FC<Props> = ({ setCounter }) => {
   const [startTime, ] = useState(() => +new Date());
   const [timer, setTimer] = useState(+new Date());
 
+  const dataSource = useSelector((state: ReduxState) => state.global.callData.accountDetails);
+  const phoneNumber = useSelector((state: ReduxState) => state.global.callData.phoneNumber);
+  const idNumber = useSelector((state: ReduxState) => state.global.callData.idNumber);
+  const email = useSelector((state: ReduxState) => state.global.callData.email);
+  const name = useSelector((state: ReduxState) => state.global.callData.name);
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer(+new Date())
@@ -63,16 +53,16 @@ const Information: FC<Props> = ({ setCounter }) => {
   return (
     <Row>
       <Col span={12}>
-        <ItemView label="Name" value="Kevin Koech" />
+        <ItemView label="Name" value={name} />
       </Col>
       <Col span={12}>
-        <ItemView label="Id Number" value="29219368" />
+        <ItemView label="Id Number" value={idNumber} />
       </Col>
       <Col span={12}>
-        <ItemView label="Email" value="koechkevin92@gmail.com" />
+        <ItemView label="Email" value={email} />
       </Col>
       <Col span={12}>
-        <ItemView label="Phone Number" value="+254726226149" />
+        <ItemView label="Phone Number" value={phoneNumber} />
       </Col>
       <Typography.Title style={{ color: '#22852e' }} level={4}>
         Account Details

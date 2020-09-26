@@ -1,5 +1,6 @@
 export interface Global {
   drawerOpen: boolean;
+  callData: any;
 }
 
 export interface User {

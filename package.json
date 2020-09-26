@@ -15,12 +15,15 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
+    "@types/socket.io": "^2.1.11",
     "antd": "^4.6.1",
     "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
     "craco-less": "^1.17.0",
     "express": "^4.17.1",
     "humps": "^2.0.1",
     "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -29,11 +32,14 @@
     "react-scripts": "3.4.3",
     "react-use": "^15.3.3",
     "redux": "^4.0.5",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "ts-node": "^9.0.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "yarn run ts-node --project tsconfig.server.json  src/server.ts",
+    "start:dev": "NODE_ENV=development nodemon -e js,ts,json,env,tsx --exec ts-node --project tsconfig.server.json  src/server.ts",
     "build": "craco build",
     "prod:up": "docker-compose -f ./docker/docker-compose.prod.yml up --build -V -d",
     "test": "craco test",
@@ -56,6 +62,7 @@
   },
   "devDependencies": {
     "@types/react-redux": "^7.1.9",
+    "@types/socket.io-client": "^1.4.33",
     "k3v-scripts": "^1.0.4",
     "redux-devtools-extension": "^2.13.8"
   }

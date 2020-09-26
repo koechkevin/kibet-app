@@ -1,19 +1,39 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Props } from './Home.interface';
 import { Typography, Row, Avatar, Button, Modal } from 'antd';
 import classes from './Home.module.scss';
 import { Information } from '../../components/Information';
 import { UserOutlined } from '@ant-design/icons/lib';
+import io from 'socket.io-client';
+import {useDispatch, useSelector} from 'react-redux';
+import { loadCallData } from '../../redux/actions/global';
+import {ReduxState} from "../../redux/interfaces";
 // import {PhoneFilled} from "@ant-design/icons/lib";
 // import welcome from '../../images/welcome.svg'
 
+const server = io.connect(process.env.NODE_ENV === 'development' ? 'http://kevin.com:3020' : '');
 const Home: FC<Props> = () => {
   const [visible, setVisible] = useState(false);
   const [calling, setCalling] = useState(false);
   const [timer, setTimer] = useState('');
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const subscription = server.on('new-call', (data: any) => {
+      if (!calling) {
+        setCalling(true);
+        dispatch(loadCallData(data));
+      }
+    });
+    return () => {
+      subscription.off('new-call');
+    };
+  }, [dispatch, calling]);
+
+  const name = useSelector((state: ReduxState) => state.global.callData.name);
+  const phoneNumber = useSelector((state: ReduxState) => state.global.callData.phoneNumber);
   return (
-    <>
-      <Button onClick={() => setCalling(true)} type="text">Call</Button>
     <Row className={classes.root}>
       <div className={classes.info}>
         <Typography.Text style={{ color: '#000' }}>
@@ -30,18 +50,22 @@ const Home: FC<Props> = () => {
           </Typography.Text>
           <br />
           <Typography.Text strong style={{ color: '#fff', fontSize: 20, lineHeight: '48px' }}>
-            Kevin Koech
+            {name}
           </Typography.Text>
           <br />
-          <Typography.Text style={{ color: '#fff', fontSize: 16, lineHeight: '48px' }}>+254726226149</Typography.Text>
+          <Typography.Text style={{ color: '#fff', fontSize: 16, lineHeight: '48px' }}>{phoneNumber}</Typography.Text>
           <div className={classes.foot}>
             <Button onClick={() => setCalling(false)} danger type="primary">
               Reject
             </Button>
-            <Button onClick={() => {
-              setVisible(true);
-              setCalling(false)
-            }}>Accept</Button>
+            <Button
+              onClick={() => {
+                setVisible(true);
+                setCalling(false);
+              }}
+            >
+              Accept
+            </Button>
           </div>
         </div>
       )}
@@ -53,7 +77,7 @@ const Home: FC<Props> = () => {
         title={
           <div style={{ display: 'flex', alignItems: 'center', paddingRight: 8 }}>
             <Avatar className={classes.avatar} icon={<UserOutlined />} />
-            <Typography.Text style={{ marginLeft: 16, flex: 1 }}>Kevin Koech</Typography.Text>
+            <Typography.Text style={{ marginLeft: 16, flex: 1 }}>{name}</Typography.Text>
             <Typography.Text>{timer}</Typography.Text>
           </div>
         }
@@ -70,7 +94,6 @@ const Home: FC<Props> = () => {
         <Information setCounter={setTimer} />
       </Modal>
     </Row>
-      </>
   );
 };
 

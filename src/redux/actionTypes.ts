@@ -7,3 +7,4 @@ export const LOAD_SINGLE_ROLE = 'LOAD_SINGLE_ROLE';
 export const LOAD_USERS = 'LOAD_USERS';
 export const LOAD_PROFILE = 'LOAD_PROFILE';
 export const LOAD_ROLES = 'LOAD_ROLES';
+export const LOAD_CALL = 'LOAD_CALL';
