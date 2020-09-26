@@ -34,11 +34,13 @@ const Information: FC<Props> = ({ setCounter }) => {
   const [startTime, ] = useState(() => +new Date());
   const [timer, setTimer] = useState(+new Date());
 
-  const dataSource = useSelector((state: ReduxState) => state.global.callData.accountDetails);
+  const accountDetails = useSelector((state: ReduxState) => state.global.callData.accountDetails);
   const phoneNumber = useSelector((state: ReduxState) => state.global.callData.phoneNumber);
   const idNumber = useSelector((state: ReduxState) => state.global.callData.idNumber);
   const email = useSelector((state: ReduxState) => state.global.callData.email);
   const name = useSelector((state: ReduxState) => state.global.callData.name);
+
+  const dataSource = (accountDetails || []).map((e: any, index: number) => ({...e, key: index}));
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer(+new Date())
