@@ -39,7 +39,7 @@ const Information: FC<Props> = ({ setCounter }) => {
   const idNumber = useSelector((state: ReduxState) => state.global.callData.idNumber || state.global.callData.idnumber);
   const email = useSelector((state: ReduxState) => state.global.callData.email);
   const name = useSelector((state: ReduxState) => state.global.callData.name || state.global.callData.customername);
-  const customerNumber = useSelector((state: ReduxState) => state.global.callData.customerno);
+  const customerNumber = useSelector((state: ReduxState) => state.global.callData.customerNo || state.global.callData.customerno);
 
   const dataSource = (accountDetails || []).map((e: any, index: number) => ({
     key: index,
