@@ -42,12 +42,12 @@ const Information: FC<Props> = ({ setCounter }) => {
   const customerNumber = useSelector((state: ReduxState) => state.global.callData.customerno);
 
   const dataSource = (accountDetails || []).map((e: any, index: number) => ({
-    ...e,
     key: index,
     number: e.accountno,
     name: e.accountname,
     type: e.accounttype,
     balance: e.Accountbalance,
+    ...e,
   }));
   useEffect(() => {
     const interval = setInterval(() => {
