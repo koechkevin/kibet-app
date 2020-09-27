@@ -22,6 +22,7 @@ const Home: FC<Props> = () => {
 
   useEffect(() => {
     const subscription = server.on('new-call', (data: any) => {
+      console.log(data);
       if (!calling) {
         setCalling(true);
         dispatch(loadCallData(data));
