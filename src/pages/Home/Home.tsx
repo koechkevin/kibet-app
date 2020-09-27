@@ -19,9 +19,9 @@ const Home: FC<Props> = () => {
 
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     const subscription = server.on('new-call', (data: any) => {
-      console.log('========>', data);
       if (!calling) {
         setCalling(true);
         dispatch(loadCallData(data));
@@ -32,8 +32,8 @@ const Home: FC<Props> = () => {
     };
   }, [dispatch, calling]);
 
-  const name = useSelector((state: ReduxState) => state.global.callData.name);
-  const phoneNumber = useSelector((state: ReduxState) => state.global.callData.phoneNumber);
+  const name = useSelector((state: ReduxState) => state.global.callData.name || state.global.callData.customername);
+  const phoneNumber = useSelector((state: ReduxState) => state.global.callData.phoneNumber || state.global.callData.mobileno);
   return (
     <Row className={classes.root}>
       <div className={classes.info}>
